@@ -114,6 +114,7 @@ function createGraph(samplevalues, OTU_id, labels) {
 //Use otu_labels for the text values.
 
 function bubblechart(samplevalues, OTU_id, labels) {
+  const colors = generateColors(OTU_id);
   let trace1 = {
     x: OTU_id,
     y: samplevalues,
@@ -121,7 +122,7 @@ function bubblechart(samplevalues, OTU_id, labels) {
     mode: 'markers',
     marker: {
       size: samplevalues,
-      color: OTU_id,
+      color: colors,
       colorscale: "Sunset"
     },
   };
@@ -211,7 +212,24 @@ function populategauge(selectedMetadata){
 
 }  
 
+//Adding a random color function using math random and rounding function
 
+function generateColors(otu_ids) {
+  let colors = [];
+  for(let i = 0; i < otu_ids.length; i++) {
+    colors.push(getRandomRgb());
+  }
+  // console.log("colorMap", colorMap);
+  return colors;
+}
+
+function getRandomRgb() {
+  let num = Math.round(0xffffff * Math.random());
+  let r = num >> 16;
+  let g = (num >> 8) & 255;
+  let b = num & 255;
+  return "rgb(" + r + ", " + g + ", " + b + ")";
+}
 
 
 
